@@ -11,10 +11,21 @@ module.exports = {
       path: path.resolve(__dirname, "dist"),
       clean: true,
    },
+   devServer: {
+      static: {
+         directory: path.resolve(__dirname, 'dist')
+      },
+      port: 3000,
+      open: true,
+      hot: true,
+      compress: true,
+      historyApiFallback: true,
+   },
    plugins: [
       new HtmlWebpackPlugin({
          template: "./src/template.html",
          title: 'Weather App',
+         filename: 'index.html',
       }),
    ],
    module: {
@@ -29,4 +40,4 @@ module.exports = {
          }
       ]
    }
-}
+} 
