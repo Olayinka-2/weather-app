@@ -8,98 +8,103 @@
 <body>
    
    <header>
-      <div class="app-name">Weather forecast for </div>
+      <div class="app-name"><p>Weather forecast for</p> <p id="cityName"></p></div>
       <div class = "city">
-         <!-- <label for="city">Enter city name: </label> -->
          <input type="text" id="city-name" placeholder="Enter City name">
          <button class="submitCity">Search</button>
+         <button id="unitToggle">Switch to Metric</button>
       </div>
    </header>
-   <main>
+   <div id="loading" class="spinner hidden"></div>
+   <main class="hidden" id="main-content">
       <div class="main-forecast">
-         <div class="forecast">
+         <div class="forecastOne">
             <div class="slide">
                <p class="day">Today</p>
-               <p class="icon-size" id="temperature">26&deg;</p>
-               <p class="humidity thin-para">62%</p>
-               <p class="wind-speed thin-para">7 km/hr</p>
-               <p class="description thin-para">  SW</p>
+               <p class="icon-size" id="temperature"></p>
+               <p class="humidity thin-para"></p>
+               <p class="wind-speed thin-para"></p>
+               <p class="description thin-para"> </p>
             </div>
             <div class="slide second">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
       </div>
       <div class="other-forecast">
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
          <div class="forecast">
             <div class="other-slides">
-               <p class="date">Apr 22</p>
+               <p class="date"></p>
                <img class="icon-size icon" src="../src/img/sun.png">
-               <p class="condition thin-para">62%</p>
-               <p class="max-temp">7 km/hr</p>
-               <p class="min-temp thin-para">  SW</p>
+               <p class="condition thin-para"></p>
+               <p class="max-temp"></p>
+               <p class="min-temp thin-para"></p>
             </div>
          </div>
       </div>
    </main>
+      
+
+
+   
 
 </body>
 </html>  

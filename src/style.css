@@ -27,6 +27,8 @@ header {
    align-items: center;
    font-size: 1.2rem;
    background-color: #163564;
+   display: flex;
+   gap: 10px;
 }
 
 .city {
@@ -35,11 +37,9 @@ header {
    gap: 10px;
 }
 
-/* .city label {
-   font-size: 1.5rem;
-   color: white;
-   
-} */
+#cityName {
+   font-weight: bold;
+}
 
 #city-name{
    padding: 5px;
@@ -54,14 +54,17 @@ header {
    outline: none;
 }
 
+.hidden {
+   visibility: hidden;
+}
+
 .main-forecast {
    display: flex;
    justify-content: center;
    margin-top: 50px;
 }
 
-.forecast {
-   width: min(80%, 300px);
+.forecastOne, .forecast {
    background-color: rgb(7, 6, 6, 0.7);
    font-size: 3rem;
    padding: 10px;
@@ -69,6 +72,11 @@ header {
    grid-template-columns: 1fr 1fr;
    font-size: .9rem;
    color: #fff;
+   margin-top: 10px;
+}
+
+.forecastOne {
+   width: min(80%, 300px);
 }
 
 .slide, .other-slides {
@@ -112,8 +120,27 @@ header {
 }
 
 .other-forecast {
-   display: flex;
    gap: 10px;
    margin: 40px 30px;
-
+   display: grid;
+   grid-template-columns:  repeat(auto-fill, minmax(170px, 1fr));
 }
+
+.spinner {
+   border: 8px solid #f3f3f3; /* Light grey */
+   border-top: 8px solid #3498db; /* Blue */
+   border-radius: 50%;
+   width: 50px;
+   height: 50px;
+   animation: spin 2s linear infinite;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50, -50);
+ }
+ 
+ @keyframes spin {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+ }
+
