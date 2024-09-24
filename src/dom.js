@@ -1,8 +1,17 @@
+import cloudIcon from './img/cloud.png';
+import rainIcon from './img/rain.png';
+import sunIcon from './img/sun.png';
+
+let weatherIcons = { 
+   cloud: cloudIcon, 
+   rain: rainIcon, 
+   sun: sunIcon 
+};
+
+
 const apiKey = 'HVYC7M37F6HLP5DUBXBLR9R4U';
 
 let weatherData;
-
-let weatherIcons = ['cloud.svg', 'rain.svg', 'sun.svg'];
 
 function getWeatherInSIUnit(location) {
    let apiURL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=${apiKey}&contentType=json`;
@@ -35,8 +44,8 @@ async function getWeather(apiURL) {
 }
 
 
-getWeatherInEnglishUnit('lagos');
-// getWeatherInSIUnit('lagos');
+// getWeatherInEnglishUnit('lagos');
+getWeatherInSIUnit('lagos');
 
 function getWeatherData(data) {
    let temperature = document.querySelector('#temperature');
@@ -87,10 +96,10 @@ function getMonthAndDay(epochTime) {
 
 function getIconType(description) {
    let icon = document.querySelector('.icon');
-   weatherIcons.forEach(element => {
-      if(description.includes(element.split('.')[0])) {
-         icon.src = `../src/img/${element}`;
-         icon.alt = element.split('.')[0]
+   Object.keys(weatherIcons).forEach(key => {
+      if(description.toLowerCase().includes(key)) {
+         icon.src = weatherIcons[key];
+         icon.alt = key;
       }
-   })
+   });
 }
