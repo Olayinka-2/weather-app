@@ -71,13 +71,13 @@ header {
    color: #fff;
 }
 
-.slide {
+.slide, .other-slides {
    width: 100%;
    display: grid;
    grid-row: 30px 100px;
 }
 
-.slide p{
+.slide p, .other-slides p{
    margin: 5px 0;
 }
 
@@ -109,4 +109,11 @@ header {
 
 .description {
    color: white;
+}
+
+.other-forecast {
+   display: flex;
+   gap: 10px;
+   margin: 40px 30px;
+
 }

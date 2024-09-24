@@ -76,7 +76,26 @@ function getWeatherData(data) {
    minTemp.textContent = `Min: ${minTempData}°C`;
    let icon = document.querySelector('.icon');
    getIconType(conditionData);
-   
+
+   let otherDates = document.querySelectorAll('.date');
+   console.log(otherDates);
+   let otherConditions = document.querySelectorAll('.condition');
+   let otherMaxTemp = document.querySelectorAll('.max-temp');
+   let otherMinTemp = document.querySelectorAll('.min-temp');
+
+   for(let i = 1; i < otherDates.length; i++) {
+      let otherDatesData = data.days[i].datetimeEpoch;
+      let otherConditionsData = data.days[i].conditions;
+      let otherMaxTempData = data.days[i].tempmax;
+      let otherMinTempData = data.days[i].tempmin;
+
+      console.log(i);
+      
+      otherConditions[i].textContent = otherConditionsData;
+      otherMaxTemp[i].textContent = `Max: ${otherMaxTempData}°C`;
+      otherMinTemp[i].textContent = `Min: ${otherMinTempData}°C`;
+      otherDates[i].textContent = getMonthAndDay(otherDatesData);
+   }
 }
 
 function getMonthAndDay(epochTime) {
