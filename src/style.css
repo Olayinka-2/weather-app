@@ -16,6 +16,7 @@ body {
 
 header {
    background-color: #163564;
+   padding: 0 0 20px;
 }
 
 .app-name {
@@ -28,11 +29,17 @@ header {
    background-color: #163564;
 }
 
-.city label {
+.city {
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+}
+
+/* .city label {
    font-size: 1.5rem;
    color: white;
    
-}
+} */
 
 #city-name{
    padding: 5px;
@@ -87,6 +94,11 @@ header {
 .icon-size {
    font-size: 35px;
    font-weight: bold;
+}
+
+.icon {
+   width: 50px;
+   height: 50px;
 }
 
 .thin-para {

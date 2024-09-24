@@ -2,6 +2,8 @@ const apiKey = 'HVYC7M37F6HLP5DUBXBLR9R4U';
 
 let weatherData;
 
+let weatherIcons = ['cloud.svg', 'rain.svg', 'sun.svg'];
+
 function getWeatherInSIUnit(location) {
    let apiURL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=${apiKey}&contentType=json`;
 
@@ -45,7 +47,6 @@ function getWeatherData(data) {
    let conditions = document.querySelector('.condition');
    let maxTemp = document.querySelector('.max-temp');
    let minTemp = document.querySelector('.min-temp');
-   let icon = document.querySelector('.icon');
 
    let temp = data.currentConditions.temp;
    let humidityData = data.currentConditions.humidity;
@@ -57,13 +58,16 @@ function getWeatherData(data) {
    let minTempData = data.days[0].tempmin;
 
    temperature.textContent = `${temp}°`;
-   humidity.textContent = humidityData;
-   speed.textContent = speedData;
+   humidity.textContent = `Hum: ${humidityData}%`;
+   speed.textContent = `speed: ${speedData}mph`;
    description.textContent = descriptionData;
    date.textContent = getMonthAndDay(dateData);
    conditions.textContent = conditionData;
-   maxTemp.textContent = `${maxTempData}°C`;
-   minTemp.textContent = `${minTempData}°C`;
+   maxTemp.textContent = `Max: ${maxTempData}°C`;
+   minTemp.textContent = `Min: ${minTempData}°C`;
+   let icon = document.querySelector('.icon');
+   getIconType(conditionData);
+   
 }
 
 function getMonthAndDay(epochTime) {
@@ -80,3 +84,13 @@ function getMonthAndDay(epochTime) {
    return `${month} ${day}`;
  
  }
+
+function getIconType(description) {
+   let icon = document.querySelector('.icon');
+   weatherIcons.forEach(element => {
+      if(description.includes(element.split('.')[0])) {
+         icon.src = `../src/img/${element}`;
+         icon.alt = element.split('.')[0]
+      }
+   })
+}
