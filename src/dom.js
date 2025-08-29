@@ -2,10 +2,10 @@ import cloudIcon from './img/cloud.png';
 import rainIcon from './img/rain.png';
 import sunIcon from './img/sun.png';
 
-let weatherIcons = { 
-   cloud: cloudIcon, 
-   rain: rainIcon, 
-   sun: sunIcon 
+let weatherIcons = {
+   cloud: cloudIcon,
+   rain: rainIcon,
+   sun: sunIcon
 };
 
 
@@ -13,28 +13,29 @@ const apiKey = 'HVYC7M37F6HLP5DUBXBLR9R4U';
 
 let weatherData;
 
-export function getWeatherInSIUnit(location) {
+export function getWeatherInEnglishUnit(location, useSIunit) {
    let apiURL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=${apiKey}&contentType=json`;
-
-   getWeather(apiURL)
+   getWeather(apiURL, useSIunit);
+   console.log(useSIunit);
 }
 
-export function getWeatherInEnglishUnit(location) {
+export function getWeatherInSIUnit(location, useSIunit) {
    let apiURL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apiKey}&contentType=json`;
-
-   getWeather(apiURL);
+   getWeather(apiURL, useSIunit);
+   console.log(useSIunit);
 }
 
-async function getWeather(apiURL) {
+
+async function getWeather(apiURL, useSIunit) {
    const loadingSpinner = document.querySelector('#loading');
    const mainContent = document.querySelector('#main-content');
 
    loadingSpinner.classList.remove('hidden');
-   mainContent.classList.add('hidden'); 
+   mainContent.classList.add('hidden');
 
    try {
       const response = await fetch(apiURL);
-      
+
       if (!response.ok) {
          throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -44,7 +45,7 @@ async function getWeather(apiURL) {
 
       loadingSpinner.classList.add('hidden');
 
-      getWeatherData(data);
+      getWeatherData(data, useSIunit);
 
       mainContent.classList.remove('hidden');
 
@@ -54,10 +55,18 @@ async function getWeather(apiURL) {
    }
 }
 
-function getWeatherData(data) {
+function getWeatherData(data, useSIunit) {
    const currentConditions = data.currentConditions;
    const forecastDays = data.days;
-   
+
+   const UNIT_CONFIG = useSIunit ? {
+      temp: "°C",
+      speed: "km/h",
+   } : {
+      temp: "°F",
+      speed: "mph",
+   };
+
    // Query all elements that need updating once
    const temperature = document.querySelector('#temperature');
    const humidity = document.querySelector('.humidity');
@@ -80,41 +89,43 @@ function getWeatherData(data) {
       maxTemp: forecastDays[0].tempmax,
       minTemp: forecastDays[0].tempmin,
       icon: icons[0] // Assuming the first icon is for today
-   });
+   }, UNIT_CONFIG);
 
    // Update other forecast days
-   updateOtherForecasts(forecastDays.slice(1), icons);
+   updateOtherForecasts(forecastDays.slice(1), icons, UNIT_CONFIG);
 
    console.log("Weather data updated successfully.");
 }
 
-function updateForecast({ temp, humidity, speed, description, date, condition, maxTemp, minTemp, icon }) {
-   // A single function to update the main forecast elements
-   setTextContent('#temperature', `${temp}°`);
+function updateForecast({ temp, humidity, speed, description, date, condition, maxTemp, minTemp, icon }, UNIT_CONFIG) {
+   const unit = UNIT_CONFIG;
+
+   setTextContent('#temperature', `${temp}${unit.temp}`);
    setTextContent('.humidity', `Hum: ${humidity}%`);
-   setTextContent('.wind-speed', `Speed: ${speed}mph`);
+   setTextContent('.wind-speed', `Speed: ${speed} ${unit.speed}`);
    setTextContent('.description', description);
    setTextContent('.date', getMonthAndDay(date));
    setTextContent('.condition', condition);
-   setTextContent('.max-temp', `Max: ${maxTemp}°C`);
-   setTextContent('.min-temp', `Min: ${minTemp}°C`);
-   
-   // Update the weather icon
+   setTextContent('.max-temp', `Max: ${maxTemp}${unit.temp}`);
+   setTextContent('.min-temp', `Min: ${minTemp}${unit.temp}`);
+
    getIconType(icon, condition);
 }
 
-function updateOtherForecasts(forecastDays, icons) {
-   // Loop through the forecastDays and update DOM elements for each day
+
+function updateOtherForecasts(forecastDays, icons, UNIT_CONFIG) {
+   const unit = UNIT_CONFIG;
+
    forecastDays.forEach((day, index) => {
       setTextContentAll('.date', getMonthAndDay(day.datetimeEpoch), index + 1);
       setTextContentAll('.condition', day.conditions, index + 1);
-      setTextContentAll('.max-temp', `Max: ${day.tempmax}°C`, index + 1);
-      setTextContentAll('.min-temp', `Min: ${day.tempmin}°C`, index + 1);
-      
-      // Update the icon for each day
+      setTextContentAll('.max-temp', `Max: ${day.tempmax}${unit.temp}`, index + 1);
+      setTextContentAll('.min-temp', `Min: ${day.tempmin}${unit.temp}`, index + 1);
+
       getIconType(icons[index + 1], day.conditions);
    });
 }
+
 
 // Helper function to set text content to a single element
 function setTextContent(selector, text) {
@@ -129,18 +140,18 @@ function setTextContentAll(selector, text, index) {
 }
 
 function getMonthAndDay(epochTime) {
-   const date = new Date(epochTime * 1000); 
+   const date = new Date(epochTime * 1000);
    const monthNames = [
      "January", "February", "March", "April", "May", "June",
      "July", "August", "September", "October", "November", "December"
    ];
- 
-   const month = monthNames[date.getMonth()]; 
- 
+
+   const month = monthNames[date.getMonth()];
+
    const day = date.getDate();
- 
+
    return `${month} ${day}`;
- 
+
  }
 
  function getIconType(iconElement, condition) {
